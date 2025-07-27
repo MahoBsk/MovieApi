@@ -8,7 +8,23 @@ namespace MovieApi.Application.Features.CQRSDesignPattern.Queries.MovieQueries
 {
     public class GetMovieByIdQuery
     {
-        public int MovieId { get; set; }
-      
+        public GetMovieByIdQuery(int movieId)
+        {
+            MovieId = movieId;
+        }
+
+        public int MovieId { get; }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is GetMovieByIdQuery query &&
+                   MovieId == query.MovieId;
+        }
+
+        public override int GetHashCode()
+        {
+            return MovieId.GetHashCode();
+        }
     }
+
 }

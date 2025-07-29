@@ -1,7 +1,9 @@
 using Microsoft.OpenApi.Models;
 using MovieApi.Application.Features.CQRSDesignPattern.Handlers.CategoryHandlers;
 using MovieApi.Application.Features.CQRSDesignPattern.Handlers.MovieHandlers;
+using MovieApi.Application.Features.MediatorDesignPattern.Handlers.TagHandlers;
 using MovieApi.Persistence.Context;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,11 +22,15 @@ builder.Services.AddScoped<CreateMovieCommandHandler>();
 builder.Services.AddScoped<RemoveMovieCommandHandler>();
 builder.Services.AddScoped<UpdateMovieCommandHandler>();
 
+//builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
+
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(GetTagQueryHandler).Assembly));
+
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(x =>
+builder.Services.AddSwaggerGen(c =>
 {
-    x.SwaggerDoc("v1", new OpenApiInfo { Title = "Benim Apim", Version = "v1" });
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Benim Apim", Version = "v1" });
 });
 
 var app = builder.Build();
@@ -33,9 +39,9 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI(x =>
+    app.UseSwaggerUI(c =>
     {
-        x.SwaggerEndpoint("/swagger/v1/swagger.json", "My Api V1");
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "My Api V1");
     });
 }
 

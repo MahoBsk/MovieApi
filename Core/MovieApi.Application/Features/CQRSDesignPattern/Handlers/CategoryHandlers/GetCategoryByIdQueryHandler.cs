@@ -23,7 +23,7 @@ namespace MovieApi.Application.Features.CQRSDesignPattern.Handlers.CategoryHandl
             return new GetCategoryBuyIdQueryResult
             {
                 CategoryId = value.CategoryId,
-                CtegoryName = value.CtegoryName,
+                CtegoryName = value.CategoryName,
             };
         }
     }

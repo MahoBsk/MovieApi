@@ -39,7 +39,7 @@ namespace MovieApi.WebApi.Controllers
         public async Task<IActionResult> CreateCategory(CreateCategoryCommand command)
         {
             await _createCategoryCommandHandler.Handle(command);
-            return Ok("Kategori Ekleme İlemi Başarılı");
+            return Ok("Kategori Ekleme İşlemi Başarılı");
         }
         [HttpDelete]
         public async Task<IActionResult> DeleteCategory(int id)

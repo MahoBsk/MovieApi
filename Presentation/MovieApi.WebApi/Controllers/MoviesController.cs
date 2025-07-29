@@ -55,8 +55,14 @@ namespace MovieApi.WebApi.Controllers
         public async Task<IActionResult> GetMovie(int id)
         {
             var value = await _movieByIdQueryHandler.Handle(new GetMovieByIdQuery(id));
+            if (value == null)
+            {
+                return NotFound("Film bulunamadı.");
+            }
+
             return Ok(value);
         }
+
         [HttpPut]
         public async Task<IActionResult> UpdateMovie(UpdateMovieCommand command)
         {

@@ -9,7 +9,6 @@ namespace MovieApi.Domain.Entities
     public class Category
     {
         public int CategoryId { get; set; }
-        public string CtegoryName { get; set; }
-        public string CategoryName { get; set; }
+        public required string CategoryName { get; set; }
     }
 }

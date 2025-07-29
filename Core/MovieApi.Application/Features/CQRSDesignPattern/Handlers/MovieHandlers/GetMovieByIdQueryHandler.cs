@@ -17,11 +17,14 @@ namespace MovieApi.Application.Features.CQRSDesignPattern.Handlers.MovieHandlers
         {
             _context = context;
         }
-        public async Task<GetMovieByIdQueryResult> Handle(GetMovieByIdQuery query)
+        public async Task<GetMovieByIdQueryResult?> Handle(GetMovieByIdQuery query)
         {
             var value = await _context.Movies.FindAsync(query.MovieId);
+            if (value == null) return null;
+
             return new GetMovieByIdQueryResult
             {
+                MovieId = value.MovieId,
                 CoverImageUrl = value.CoverImageUrl,
                 CreatedYear = value.CreatedYear,
                 Description = value.Description,
@@ -32,5 +35,6 @@ namespace MovieApi.Application.Features.CQRSDesignPattern.Handlers.MovieHandlers
                 Title = value.Title
             };
         }
+
     }
 }
